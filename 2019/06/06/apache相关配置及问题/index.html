@@ -10,11 +10,73 @@
 <li><p>1.php.ini中,设置php的模块位置(找到关键字extension_dir);</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension_dir = &quot;D:\php\ext&quot;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<ul>
 <li><p>2.php.ini中,开启mysqli模块(实际上,只是去除注释,关键字php_mysqli)</p>
 </li>
-<li><p>3.安装mysql数据并配置它(这是一个完整的安装过程)</p>
+</ul>
+<h3 id="网站基本配置"><a href="#网站基本配置" class="headerlink" title="网站基本配置"></a>网站基本配置</h3><ul>
+<li><p>站点域名:</p>
+<ul>
+<li>ServerName localhost</li>
+</ul>
+</li>
+<li><p>站点位置(文件夹位置):</p>
+<ul>
+<li>DocumentRoot D:\apache\dtdocs</li>
+</ul>
+</li>
+<li><p>站点文件夹的访问权限设置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用&lt;Directory&gt;...&lt;/Directory&gt;配置项来配置</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>站点默认显示的网页(首页):</p>
+<ul>
+<li>DirectoryIndex index.php index.html</li>
+</ul>
+</li>
+</ul>
+<h3 id="网站访问权限设置"><a href="#网站访问权限设置" class="headerlink" title="网站访问权限设置"></a>网站访问权限设置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;Directory &quot;要设置权限的文件夹路径&quot;&gt;</span><br><span class="line">	Options 设置项</span><br><span class="line">	AllowOverride 设置项</span><br><span class="line">	Require 权限设置项</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Options: 用于设置一些系统选项,通常Windows系统中就用Indexes就可以.</p>
+<ul>
+<li>Options Indexes  //表示允许列出目录结构(如果没有可显示的网页)( 仅在开发时设置)</li>
+</ul>
+</li>
+<li><p>AllowOverride: 用于设置”可覆盖性”,即是否允许在项目文件中覆盖这里的访问权限设置:</p>
+<ul>
+<li>AllowOverride All  //表示可覆盖</li>
+<li>AllowOverride None //表示是不可覆盖</li>
+</ul>
+</li>
+<li><p>Require: 用于设置可访问权限,常用的有:</p>
+<ul>
+<li><p>允许所有来源的访问: –推荐</p>
+<ul>
+<li>Require All granted</li>
+</ul>
+</li>
+<li><p>拒绝所有来源的访问: – 网站需要临时关闭时使用</p>
+<ul>
+<li>Require All denied</li>
+</ul>
+</li>
+<li><p>允许所有但拒绝部分来源的访问:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;RequireAll&gt;</span><br><span class="line">	Require all granted</span><br><span class="line">	Require not ip 192.168.1.102 192.168.1.103</span><br><span class="line">&lt;/RequireAll&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拒绝所有但允许部分来源的访问:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;RequireAny&gt;</span><br><span class="line">	Require all denied</span><br><span class="line">	Require ip 192.168.1.102 192.168.1.103 </span><br><span class="line">&lt;/RequireAny&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="多站点配置"><a href="#多站点配置" class="headerlink" title="多站点配置"></a>多站点配置</h3><ul>
+<li><p>虚拟主机</p>
+<ul>
+<li><p>在apache的主配置文件(http.conf),引入多站点的配置文件(虚拟主机配置文件)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Virtual hosts</span><br><span class="line">Include conf/extra/httpd-vhosts.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在虚拟主机配置文件(httpd-vhosts.conf)中,再挨个网站进行配置(每个网站一段配置)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#站点1:</span><br><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">    ServerName localhost</span><br><span class="line">    DocumentRoot &quot;D:\ApacheServer\Apache24\htdocs\blog&quot;</span><br><span class="line">    &lt;Directory &quot;D:\ApacheServer\Apache24\htdocs\blog&quot;&gt;</span><br><span class="line">        Options Indexes</span><br><span class="line">        AllowOverride All</span><br><span class="line">        Require all granted</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line">    DirectoryIndex index.php index.html</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="the-requested-operation-has-failed"><a href="#the-requested-operation-has-failed" class="headerlink" title="the requested operation has failed"></a>the requested operation has failed</h3><h4 id="httpd-conf配置文件语法问题"><a href="#httpd-conf配置文件语法问题" class="headerlink" title="httpd.conf配置文件语法问题"></a>httpd.conf配置文件语法问题</h4><p>进入到bin目录使用httpd -t 测试.</p>
