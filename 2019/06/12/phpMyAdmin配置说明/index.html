@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Austin Wezz,austinwezz@163.com"><title>phpMyAdmin配置说明 · 穷途末路</title><meta name="description" content="[导读] phpMyAdmin 就是一种 MySQL 数据库的管理工具，安装该工具后，即可以通过 web 形式直接管理 MySQL 数据，而不需要通过执行系统命令来管理，非常适合对数据库操作命令不熟悉的数据库管理者，下面详细说明
+phpMyAdmin 就是一种 MySQL 数据库的管理工具，安装该工"><meta name="keywords" content="java,js,HTML,CSS,sql"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">穷途末路</a></h3><div class="description"><p>天真</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="http://www.beian.miit.gov.cn"><span>冀ICP备18019657号-1 </span></a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">主页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">其他</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="/images/favicon.png"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>phpMyAdmin配置说明</a></h3></div><div class="post-content"><p>[导读] phpMyAdmin 就是一种 MySQL 数据库的管理工具，安装该工具后，即可以通过 web 形式直接管理 MySQL 数据，而不需要通过执行系统命令来管理，非常适合对数据库操作命令不熟悉的数据库管理者，下面详细说明</p>
+<p>phpMyAdmin 就是一种 MySQL 数据库的管理工具，安装该工具后，即可以通过 web 形式直接管理 MySQL 数据，而不需要通过执行系统命令来管理，非常适合对数据库操作命令不熟悉的数据库管理者，下面详细说明该工具的安装方法。</p>
+<table>
+<thead>
+<tr>
+<th><strong>下载地址：</strong></th>
+<th><a href="https://www.phpmyadmin.net/downloads/" target="_blank" rel="noopener"><strong>PHPMyadmin</strong></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>一、下载</strong></p>
+<p>先多特软件站下载 phpMyAdmin，也可以到 phpMyAdmin 官方网站下载，再解压到 web 可以访问的目录下，如果是虚拟空间，可以解压后通过 ftp 工具上传到 web 目录下，同时您可以修改解压后该文件的名称。</p>
+<p><strong>二、配置</strong></p>
+<p>打开 libraries 目录下的 config.default.php 文件，依次找到下面各项，按照说明配置即可。</p>
+<p><strong>1、访问网址</strong></p>
+<p>$cfg[‘PmaAbsoluteUri’] = ‘’;这里填写 phpMyAdmin 的访问网址。</p>
+<p><strong>2、MySQL 主机信息</strong></p>
+<p>$cfg[‘Servers’][$i][‘host’] = ‘localhost’; // MySQL hostname or IP address</p>
+<p>填写 localhost 或 MySQL 所在服务器的 ip 地址，如果 MySQL 和该 phpMyAdmin 在同一服务器，则按默认 localhost</p>
+<p>$cfg[‘Servers’][$i][‘port’] = ‘’; // MySQL port - leave blank for default port</p>
+<p>MySQL 端口，默认为 3306，保留为空即可，如果您安装 MySQL 时使用了其它的端口，需要在这里填写。</p>
+<p><strong>3、MySQL 用户名和密码</strong></p>
+<p>$cfg[‘Servers’][$i][‘user’] = ‘root’; // 填写 MySQL 访问 phpMyAdmin 使用的 MySQL 用户名，默认为 root。</p>
+<p>fg[‘Servers’][$i][‘password’] = ‘’; // 填写对应上述 MySQL 用户名的密码。</p>
+<p><strong>4、认证方法</strong></p>
+<p>$cfg[‘Servers’][$i][‘auth_type’] = ‘cookie’;考虑到安全的因素，建议这里填写 cookie。</p>
+<p>在此有四种模式可供选择，cookie，http，HTTP，config</p>
+<p>config 方式即输入 phpMyAdmin 的访问网址即可直接进入，无需输入用户名和密码，是不安全的，不推荐使用。</p>
+<p>当该项设置为 cookie，http 或 HTTP 时，登录 phpMyAdmin 需要数据用户名和密码进行验证，具体如下：</p>
+<p>PHP 安装模式为 Apache，可以使用 http 和 cookie；</p>
+<p>PHP 安装模式为 CGI，可以使用 cookie。</p>
+<p><strong>5、短语密码（blowfish_secret）的设置</strong></p>
+<p>$cfg[‘blowfish_secret’] = ‘’;如果认证方法设置为 cookie，就需要设置短语密码，设置为什么密码，由您自己决定，这里不能留空，否则会在登录 phpMyAdmin 时提示的错误。</p>
+<p>安装完成后，我们可以在浏览器进行访问，如下图所示：</p>
+<p><img src="http://img.php.cn/upload/article/000/000/007/c8aa04111012d0edad151850501061e9-0.jpg" alt="phpMyAdmin"></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-06-12</span><i class="fa fa-tag"></i><a class="tag" href="/tags/php/" title="php">php </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,www.momogasama.com/2019/06/12/phpMyAdmin配置说明/,穷途末路,phpMyAdmin配置说明,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/06/12/博客系统数据库表设计/" title="博客系统数据库表设计">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/06/11/print和echo/" title="print和echo">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>

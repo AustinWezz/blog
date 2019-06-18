@@ -1,0 +1,665 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Austin Wezz,austinwezz@163.com"><title>博客系统数据库表设计 · 穷途末路</title><meta name="description" content="第一版:1.user表
+
+
+字段
+类型
+属性
+解释
+
+
+
+
+id
+int(11)
+非空,自增
+用户ID
+
+
+username
+varchar(20)
+
+用户名
+
+
+password
+char(32)
+
+密码
+
+
+name
+varchar(16)
+
+真实姓名
+
+
+tel
+varchar(50)
+
+联系"><meta name="keywords" content="java,js,HTML,CSS,sql"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">穷途末路</a></h3><div class="description"><p>天真</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="http://www.beian.miit.gov.cn"><span>冀ICP备18019657号-1 </span></a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">主页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">其他</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="/images/favicon.png"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>博客系统数据库表设计</a></h3></div><div class="post-content"><h2 id="第一版"><a href="#第一版" class="headerlink" title="第一版:"></a>第一版:</h2><h3 id="1-user表"><a href="#1-user表" class="headerlink" title="1.user表"></a>1.user表</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">非空,自增</td>
+<td style="text-align:center">用户ID</td>
+</tr>
+<tr>
+<td style="text-align:center">username</td>
+<td style="text-align:center">varchar(20)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">用户名</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">char(32)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">密码</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">varchar(16)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">真实姓名</td>
+</tr>
+<tr>
+<td style="text-align:center">tel</td>
+<td style="text-align:center">varchar(50)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">联系方式</td>
+</tr>
+<tr>
+<td style="text-align:center">last_login_ip</td>
+<td style="text-align:center">char(15)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">最后登录id地址</td>
+</tr>
+<tr>
+<td style="text-align:center">last_login_time</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">最后登录时间</td>
+</tr>
+<tr>
+<td style="text-align:center">login_time</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">登录的总次数</td>
+</tr>
+<tr>
+<td style="text-align:center">status</td>
+<td style="text-align:center">smallint(1)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">帐号状态:0停用,1正常</td>
+</tr>
+<tr>
+<td style="text-align:center">role</td>
+<td style="text-align:center">tinyint(1)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">角色:0普通管理员,1超级管理员</td>
+</tr>
+<tr>
+<td style="text-align:center">addate</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">注册时间</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`user`</span>(</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment primary <span class="keyword">key</span>,</span><br><span class="line">    <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="string">`password`</span> <span class="built_in">char</span>(<span class="number">32</span>),</span><br><span class="line">    <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">12</span>),</span><br><span class="line">    <span class="string">`tel`</span> <span class="built_in">varchar</span>(<span class="number">15</span>),</span><br><span class="line">    <span class="string">`last_login_ip`</span> <span class="built_in">char</span>(<span class="number">15</span>),</span><br><span class="line">    <span class="string">`last_login_time`</span> <span class="built_in">int</span>(<span class="number">10</span>),</span><br><span class="line">    <span class="string">`login_times`</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">    <span class="string">`status`</span> <span class="built_in">tinyint</span> <span class="keyword">not</span> <span class="literal">null</span>  <span class="keyword">default</span> <span class="string">`,</span></span><br><span class="line"><span class="string">    `</span><span class="keyword">role</span><span class="string">` tinyint not null default 0,</span></span><br><span class="line"><span class="string">    `</span>addate<span class="string">` int(10)</span></span><br><span class="line"><span class="string">)ENGINE=MyISAM;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-links表"><a href="#2-links表" class="headerlink" title="2.links表"></a>2.links表</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">smallint(6)</td>
+<td style="text-align:center">主键,自增,非空</td>
+<td style="text-align:center">links表主键</td>
+</tr>
+<tr>
+<td style="text-align:center">domain</td>
+<td style="text-align:center">varchar(20)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">网站名称</td>
+</tr>
+<tr>
+<td style="text-align:center">url</td>
+<td style="text-align:center">varchar(20)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">网站地址</td>
+</tr>
+<tr>
+<td style="text-align:center">orderby</td>
+<td style="text-align:center">tinyint(4)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">排序字段</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`links`</span>(</span><br><span class="line"> <span class="string">`id`</span> <span class="built_in">smallint</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment primary <span class="keyword">key</span>,</span><br><span class="line"> <span class="string">`domain`</span> <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line"> <span class="string">`url`</span> <span class="built_in">varchar</span>(<span class="number">100</span>),</span><br><span class="line"> <span class="string">`orderby`</span> <span class="built_in">tinyint</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span></span><br><span class="line">)<span class="keyword">ENGINE</span>=MyISAM;</span><br></pre></td></tr></table></figure>
+<h3 id="3-category表"><a href="#3-category表" class="headerlink" title="3.category表"></a>3.category表</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">smallint(6)</td>
+<td style="text-align:center">主键,自增,非空</td>
+<td style="text-align:center">category表主键</td>
+</tr>
+<tr>
+<td style="text-align:center">classname</td>
+<td style="text-align:center">varchar(30)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">分类名称</td>
+</tr>
+<tr>
+<td style="text-align:center">orderby</td>
+<td style="text-align:center">tinyint(4)</td>
+<td style="text-align:center">非空,默认值0</td>
+<td style="text-align:center">排序字段</td>
+</tr>
+<tr>
+<td style="text-align:center">pid</td>
+<td style="text-align:center">smallint(6)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">父类ID</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`category`</span>(</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">smallint</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment primary <span class="keyword">key</span>,</span><br><span class="line">    <span class="string">`classname`</span> <span class="built_in">varchar</span>(<span class="number">30</span>),</span><br><span class="line">    <span class="string">`orderby`</span> <span class="built_in">tinyint</span>(<span class="number">4</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">    <span class="string">`pid`</span> <span class="built_in">smallint</span></span><br><span class="line">)<span class="keyword">ENGINE</span>=MyISAM;</span><br></pre></td></tr></table></figure>
+<h4 id="4-article表"><a href="#4-article表" class="headerlink" title="4.article表"></a>4.article表</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">字段</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">主键,非空,自增</td>
+<td style="text-align:center">文章表主键</td>
+</tr>
+<tr>
+<td style="text-align:center">category_id</td>
+<td style="text-align:center">smallint(6)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">分类id</td>
+</tr>
+<tr>
+<td style="text-align:center">user_id</td>
+<td style="text-align:center">smallint(6)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">用户id</td>
+</tr>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:center">varchar(50)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">文章标题</td>
+</tr>
+<tr>
+<td style="text-align:center">content</td>
+<td style="text-align:center">text</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">文章内容</td>
+</tr>
+<tr>
+<td style="text-align:center">orderby</td>
+<td style="text-align:center">tinyint(4)</td>
+<td style="text-align:center">非空</td>
+<td style="text-align:center">排序字段</td>
+</tr>
+<tr>
+<td style="text-align:center">comment_count</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">非空</td>
+<td style="text-align:center">评论数</td>
+</tr>
+<tr>
+<td style="text-align:center">top</td>
+<td style="text-align:center">tinyint(1)</td>
+<td style="text-align:center">非空</td>
+<td style="text-align:center">置顶:1置顶,0不置顶</td>
+</tr>
+<tr>
+<td style="text-align:center">read</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">非空</td>
+<td style="text-align:center">阅读数</td>
+</tr>
+<tr>
+<td style="text-align:center">praise</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center">非空</td>
+<td style="text-align:center">点赞数</td>
+</tr>
+<tr>
+<td style="text-align:center">addate</td>
+<td style="text-align:center">int(11)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">发布时间</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`article`</span>(</span><br><span class="line">	<span class="string">`id`</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment primary <span class="keyword">key</span>,</span><br><span class="line">    <span class="string">`category_id`</span> <span class="built_in">smallint</span>,</span><br><span class="line">    <span class="string">`user_id`</span> <span class="built_in">smallint</span>,</span><br><span class="line">    <span class="string">`title`</span> <span class="built_in">varchar</span>(<span class="number">50</span>),</span><br><span class="line">    <span class="string">`content`</span> <span class="built_in">text</span>,</span><br><span class="line">    <span class="string">`orderby`</span> <span class="built_in">tinyint</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">    <span class="string">`comment_count int not null default 0,</span></span><br><span class="line"><span class="string">    `</span>top<span class="string">` tinyint not null default 0,</span></span><br><span class="line"><span class="string">    `</span><span class="keyword">read</span><span class="string">` int not null default 0,</span></span><br><span class="line"><span class="string">    `</span>praise<span class="string">` int not null default 0,</span></span><br><span class="line"><span class="string">    `</span>addate<span class="string">` int</span></span><br><span class="line"><span class="string">)ENGINE=MyISAM;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>参照<a href="http://docs.typecho.org/database" target="_blank" rel="noopener">typeecho的数据库设计</a></p>
+<p>1.users表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">键名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">uid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负数,自增</td>
+<td style="text-align:center">user表主键</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">唯一</td>
+<td style="text-align:center">用户名称</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">用户密码</td>
+</tr>
+<tr>
+<td style="text-align:center">mail</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">唯一</td>
+<td style="text-align:center">用户的邮箱</td>
+</tr>
+<tr>
+<td style="text-align:center">url</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">用户的主页</td>
+</tr>
+<tr>
+<td style="text-align:center">screenName</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">用户显示的名称</td>
+</tr>
+<tr>
+<td style="text-align:center">created</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">用户注册时的GMT unix时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">activated</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">最后活动时间</td>
+</tr>
+<tr>
+<td style="text-align:center">logged</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">上次登录最后活跃时间</td>
+</tr>
+<tr>
+<td style="text-align:center">group</td>
+<td style="text-align:center">varchar(16)</td>
+<td style="text-align:center"><em>N/A</em></td>
+<td style="text-align:center">用户组</td>
+</tr>
+<tr>
+<td style="text-align:center">authCode</td>
+<td style="text-align:center">varchar(40)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">用户登录验证码</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-options表"><a href="#2-options表" class="headerlink" title="2.options表"></a>2.options表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">键名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">主键</td>
+<td style="text-align:center">配置名称</td>
+</tr>
+<tr>
+<td style="text-align:center">user</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负</td>
+<td style="text-align:center">配置所属用户,默认为0(全局配置)</td>
+</tr>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:center">text</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">配置值</td>
+</tr>
+</tbody>
+</table>
+<p>3.comments表</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">键名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">coid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负,自增</td>
+<td style="text-align:center">comment表主键</td>
+</tr>
+<tr>
+<td style="text-align:center">cid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">索引,非负</td>
+<td style="text-align:center">post表主键,关联字段</td>
+</tr>
+<tr>
+<td style="text-align:center">created</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">评论生成时的GMT unix时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">author</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论作者</td>
+</tr>
+<tr>
+<td style="text-align:center">authorId</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">评论所属用户id</td>
+</tr>
+<tr>
+<td style="text-align:center">ownerId</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">评论所属内容作者id</td>
+</tr>
+<tr>
+<td style="text-align:center">mail</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论者邮件</td>
+</tr>
+<tr>
+<td style="text-align:center">url</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论者网址</td>
+</tr>
+<tr>
+<td style="text-align:center">ip</td>
+<td style="text-align:center">varchar(64)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论者ip地址</td>
+</tr>
+<tr>
+<td style="text-align:center">agent</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论者客户端</td>
+</tr>
+<tr>
+<td style="text-align:center">text</td>
+<td style="text-align:center">text</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论文字</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">varchar(16)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论类型</td>
+</tr>
+<tr>
+<td style="text-align:center">status</td>
+<td style="text-align:center">varchar(16)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">评论状态</td>
+</tr>
+<tr>
+<td style="text-align:center">parent</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">父级评论</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-metas表"><a href="#4-metas表" class="headerlink" title="4.metas表"></a>4.metas表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">键名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">mid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负</td>
+<td style="text-align:center">项目主键</td>
+</tr>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">名称</td>
+</tr>
+<tr>
+<td style="text-align:center">slug</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">索引,可为空</td>
+<td style="text-align:center">项目缩略名</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">项目类型</td>
+</tr>
+<tr>
+<td style="text-align:center">description</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">选项描述</td>
+</tr>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">项目所属内容个数</td>
+</tr>
+<tr>
+<td style="text-align:center">order</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">项目排序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-relationships表"><a href="#5-relationships表" class="headerlink" title="5.relationships表"></a>5.relationships表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">键名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负</td>
+<td style="text-align:center">内容主键</td>
+</tr>
+<tr>
+<td style="text-align:center">mid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负</td>
+<td style="text-align:center">项目主键</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-contents表"><a href="#6-contents表" class="headerlink" title="6.contents表"></a>6.contents表</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">键名</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">属性</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cid</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">主键,非负,自增</td>
+<td style="text-align:center">post表主键</td>
+</tr>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">内容标题</td>
+</tr>
+<tr>
+<td style="text-align:center">slug</td>
+<td style="text-align:center">varchar(200)</td>
+<td style="text-align:center">索引,可为空</td>
+<td style="text-align:center">内容缩略名</td>
+</tr>
+<tr>
+<td style="text-align:center">created</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">索引,非负,可为空</td>
+<td style="text-align:center">内容生成时的GMT unix时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">modified</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">内容更改时的GMT unix时间戳</td>
+</tr>
+<tr>
+<td style="text-align:center">text</td>
+<td style="text-align:center">text</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">内容文字</td>
+</tr>
+<tr>
+<td style="text-align:center">order</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">排序</td>
+</tr>
+<tr>
+<td style="text-align:center">authorId</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">内容所属用户id</td>
+</tr>
+<tr>
+<td style="text-align:center">template</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">内容使用的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:center">varchar(16)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">内容类别</td>
+</tr>
+<tr>
+<td style="text-align:center">status</td>
+<td style="text-align:center">varchar(16)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">内容状态</td>
+</tr>
+<tr>
+<td style="text-align:center">password</td>
+<td style="text-align:center">varchar(32)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">受保护内容,此字段对应内容保护密码</td>
+</tr>
+<tr>
+<td style="text-align:center">commentsNum</td>
+<td style="text-align:center">int(10)</td>
+<td style="text-align:center">非负,可为空</td>
+<td style="text-align:center">内容所属评论数,冗余字段</td>
+</tr>
+<tr>
+<td style="text-align:center">allowComment</td>
+<td style="text-align:center">char(1)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">是否允许评论</td>
+</tr>
+<tr>
+<td style="text-align:center">allowPing</td>
+<td style="text-align:center">char(1)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">是否允许ping</td>
+</tr>
+<tr>
+<td style="text-align:center">allowFeed</td>
+<td style="text-align:center">char(1)</td>
+<td style="text-align:center">可为空</td>
+<td style="text-align:center">允许出现在聚合中</td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-06-12</span><i class="fa fa-tag"></i><a class="tag" href="/categories/数据库/" title="数据库">数据库 </a><a class="tag" href="/tags/数据库设计/" title="数据库设计">数据库设计 </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,www.momogasama.com/2019/06/12/博客系统数据库表设计/,穷途末路,博客系统数据库表设计,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/06/13/mysqli扩展/" title="mysqli扩展">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/06/12/phpMyAdmin配置说明/" title="phpMyAdmin配置说明">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
