@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Austin Wezz,austinwezz@163.com"><title>koa2 · 穷途末路</title><meta name="description" content="koa2安装
+使用npm install koa-generator -g全局安装koa生成器
+
+创建项目:koa2 -e project ,-e表示使用ejs模板引擎
+
+安装依赖: cd project &amp;amp;&amp;amp; npm install
+启动app:SET DEBUG=koa* npm"><meta name="keywords" content="java,js,HTML,CSS,sql"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">穷途末路</a></h3><div class="description"><p>天真</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="http://www.beian.miit.gov.cn"><span>冀ICP备18019657号-1 </span></a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">主页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/links">其他</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li></div><div class="avatar"><img src="/images/favicon.png"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>koa2</a></h3></div><div class="post-content"><h2 id="koa2安装"><a href="#koa2安装" class="headerlink" title="koa2安装"></a>koa2安装</h2><ul>
+<li><p>使用<code>npm install koa-generator -g</code>全局安装koa生成器</p>
+</li>
+<li><p>创建项目:<code>koa2 -e project</code> ,-e表示使用ejs模板引擎</p>
+</li>
+<li>安装依赖: <code>cd project &amp;&amp; npm install</code></li>
+<li>启动app:<code>SET DEBUG=koa* npm start project</code><ul>
+<li>启动项目相关命令</li>
+<li>npm start(修改代码,不自动更新)</li>
+<li>npm run dev</li>
+<li>npm run prd</li>
+<li>npm test</li>
+</ul>
+</li>
+</ul>
+<h2 id="koa2中间件"><a href="#koa2中间件" class="headerlink" title="koa2中间件"></a>koa2中间件</h2><p><img src="D:\BLOG\blog\source\_posts\koa middleware.jpg" alt="koa2中间件"></p>
+<ul>
+<li><p>每一环都是一个中间件</p>
+</li>
+<li><p>自定义一个中间件</p>
+</li>
+<li><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个koa-pv.js的中间件文件</span></span><br><span class="line"><span class="comment">// 内容如下:</span></span><br><span class="line"><span class="comment">// 声明一个函数,用来写中间件具体的功能.</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pv</span>(<span class="params">ctx</span>)</span>&#123; <span class="comment">// ctx:全局上下文,从request到response过程中全局变量.</span></span><br><span class="line">  <span class="comment">// 中间件处理过程</span></span><br><span class="line">  global.console.log(ctx.path)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导出中间件函数</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// 返回一个异步执行的函数,</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">ctx,next</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 中间件处理</span></span><br><span class="line">    pv(ctx)</span><br><span class="line">    <span class="comment">// 执行下一个中间件.</span></span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// app.js 文件中使用刚创建的中间件</span></span><br><span class="line">... </span><br><span class="line"><span class="keyword">const</span> pv = <span class="built_in">require</span>(<span class="string">'./middleware/koa-pv'</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">app.use(pv())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>中间件执行顺序</p>
+<ul>
+<li>123-321</li>
+</ul>
+</li>
+</ul>
+<h2 id="koa路由"><a href="#koa路由" class="headerlink" title="koa路由"></a><a href="https://github.com/ZijianHe/koa-router" target="_blank" rel="noopener">koa路由</a></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">'koa-router'</span>)()</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">	<span class="keyword">await</span> ctx.render(<span class="string">'index'</span>,&#123;  <span class="comment">// render 渲染界面</span></span><br><span class="line">        title: <span class="string">'Hello Koa 2!'</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/string'</span>, <span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    ctx body = <span class="string">"koa2 string"</span>   <span class="comment">// 操作接口</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>new  Router</li>
+<li>instance<ul>
+<li>.get|put|post|patch|delete|del =&gt;Router</li>
+<li>.routes= function</li>
+<li>.use([path],middleware)=&gt;Router</li>
+<li>.prefix(prefix)=&gt;Router</li>
+<li>.allowedMethods[options]=&gt;function</li>
+<li>.redirect(source,destination,[code])=&gt;Router</li>
+<li>.url([name,params,[options]])=&gt;String|Error</li>
+<li>.param(param,middleware)=&gt;Router</li>
+</ul>
+</li>
+<li>static<ul>
+<li>.url(path,params)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a><a href="https://koa.bootcss.com/" target="_blank" rel="noopener">cookie</a></h2><ul>
+<li>读cookie<ul>
+<li>ctx.cookies.get(‘name’);</li>
+</ul>
+</li>
+<li>写cookie<ul>
+<li>ctx.cookies.set(‘name’,’value’)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="koa2常用中间件"><a href="#koa2常用中间件" class="headerlink" title="koa2常用中间件"></a>koa2常用中间件</h2><ol>
+<li><p>koa-generic-session</p>
+</li>
+<li><p><a href="https://www.npmjs.com/package/koa-redis" target="_blank" rel="noopener">koa-redis</a></p>
+</li>
+</ol>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-07-01</span><i class="fa fa-tag"></i><a class="tag" href="/categories/web后台/" title="web后台">web后台 </a><a class="tag" href="/tags/koa/" title="koa">koa </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,www.momogasama.com/2019/07/01/koa2/,穷途末路,koa2,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/07/03/redis/" title="redis">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/06/18/html5/" title="html5">Próximo post</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
